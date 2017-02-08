@@ -1,0 +1,19 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "0zyjxBLbOoPpgyZ0c5z80AruW3g=",
+			"path": "github.com/esiqveland/notify",
+			"revision": "564c42ed9491326e30b1951d1e1b17c25e7b6ef2",
+			"revisionTime": "2015-10-26T18:13:08Z"
+		},
+		{
+			"checksumSHA1": "Y03oV8ua8TBsSFozViEo7U4dXCE=",
+			"path": "github.com/godbus/dbus",
+			"revision": "4b24ebee04561bf8a3bcc09aead82062edc56778",
+			"revisionTime": "2016-12-02T21:35:00Z"
+		}
+	],
+	"rootPath": "github.com/codeflavor/notifier"
+}
