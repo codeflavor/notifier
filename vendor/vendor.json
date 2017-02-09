@@ -13,6 +13,17 @@
 			"path": "github.com/godbus/dbus",
 			"revision": "4b24ebee04561bf8a3bcc09aead82062edc56778",
 			"revisionTime": "2016-12-02T21:35:00Z"
+		},
+		{
+			"checksumSHA1": "HmbftipkadrLlCfzzVQ+iFHbl6g=",
+			"path": "github.com/golang/glog",
+			"revision": "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
+			"revisionTime": "2016-01-25T20:49:56Z"
+		},
+		{
+			"path": "github.com/google/glog",
+			"revision": "b6a5e0524c28178985f0d228e9eaa43808dbec3c",
+			"revisionTime": "2016-10-20T06:52:27Z"
 		}
 	],
 	"rootPath": "github.com/codeflavor/notifier"
