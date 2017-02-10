@@ -4,21 +4,32 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/codeflavor/notifier/pkg/notice"
 )
 
 const (
+	// NOTE: this shouldn't contain BAT0, since that could be different on laptops
+	// with two batteries, or on systems that detect the batter to be BAT1.
+	// Replace with regex.
 	batteryInfo      = "/sys/class/power_supply/BAT0/capacity"
 	defaultThreshold = 20
 )
 
 type battery struct {
+	icon string
 }
 
 func (b *battery) Start() error {
-	err := checkBattThreshold()
+	msg, err := checkBattThreshold()
 	if err != nil {
 		return err
 	}
+
+	if msg != "" {
+		notifyUser(msg)
+	}
+
 	return nil
 }
 
