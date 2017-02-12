@@ -14,6 +14,7 @@ const (
 	// Replace with regex.
 	batteryInfo      = "/sys/class/power_supply/BAT0/capacity"
 	defaultThreshold = 20
+	appName          = "battery"
 )
 
 type battery struct {
@@ -27,7 +28,7 @@ func (b *battery) Start() error {
 	}
 
 	if msg != "" {
-		notifyUser(msg)
+		NotifyUser(msg)
 	}
 
 	return nil
