@@ -56,7 +56,7 @@ func checkBattThreshold() (string, error) {
 		return "", err
 	}
 	if t < defaultThreshold {
-		return fmt.Sprintf("Battery status below defined default (%d) threshold", defaultThreshold), nil
+		return fmt.Sprintf("Battery status below defined (%d) threshold", defaultThreshold), nil
 	}
 	return "", nil
 }

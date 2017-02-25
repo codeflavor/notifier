@@ -14,7 +14,7 @@ type Service interface {
 	Start() error
 	Stop() error
 	Reload() error
-	Info() ServiceInfo
+	Info() (*ServiceInfo, error)
 }
 
 // Controller controls the service instantiating, terminating and reloading.
@@ -23,14 +23,17 @@ type Controller struct {
 	servicePool     []Service
 }
 
-// Start tries to start a new service.
+// Start tries to start a new service..
 func (c *Controller) Start() error {
 	for _, service := range c.servicePool {
 		err := service.Start()
 		// Don't panic, just log the error from the service.
 		// NOTE: errors need to be detailed to streamline debugging.
 		if err != nil {
-			info := service.Info()
+			info, err := service.Info()
+			if err != nil {
+				return err
+			}
 			glog.Warningf("Failed to start service %s", info.Name)
 		}
 	}
@@ -53,6 +56,7 @@ func (c *Controller) LoadServices() error {
 	return nil
 }
 
+// newController creates a new controller.
 func newController(poolTime int, services []Service) *Controller {
 	return &Controller{
 		poolTimeSeconds: poolTime,
