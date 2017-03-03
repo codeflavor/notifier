@@ -4,6 +4,7 @@ import (
 	"github.com/golang/glog"
 )
 
+// NOTE: what was i going to use this for?
 type ServiceInfo struct {
 	Name string
 }
@@ -19,7 +20,7 @@ type Service interface {
 
 // Controller controls the service instantiating, terminating and reloading.
 type Controller struct {
-	poolTimeSeconds int
+	pollTimeSeconds int
 	servicePool     []Service
 }
 
@@ -50,15 +51,15 @@ func (c *Controller) Reload() error {
 	return nil
 }
 
-// LoadServices validates the services that are going to be run and adds them to
+// Load validates the services that are going to be run and adds them to
 // the controllers service pool.
-func (c *Controller) LoadServices() error {
+func (c *Controller) Load() error {
 	return nil
 }
 
 // newController creates a new controller.
-func newController(poolTime int, services []Service) *Controller {
+func newController(pollerTime int, services []Service) *Controller {
 	return &Controller{
-		poolTimeSeconds: poolTime,
+		pollTimeSeconds: pollerTime,
 	}
 }
