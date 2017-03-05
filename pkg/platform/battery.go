@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 
-	"github.com/codeflavor/notifier/pkg/notice"
+	"github.com/codeflavor/notifier/pkg/service"
 )
 
 const (
@@ -17,33 +18,49 @@ const (
 	appName          = "battery"
 )
 
-type battery struct {
-	icon string
+// Battery holds information about the system battery if any.
+type Battery struct {
+	Icon     string
+	Name     string
+	Summary  string
+	pollTime time.Duration
 }
 
-func (b *battery) Start() error {
-	msg, err := checkBattThreshold()
-	if err != nil {
-		return err
+// Start enables battery check based on a defined duration.
+func (b *Battery) Start() (string, error) {
+	// adding this here for posterity
+	b.pollTime = 6 * time.Second
+	for {
+		msg, err := checkBattThreshold()
+		if err != nil {
+			return "", err
+		}
+		if msg != "" {
+			return msg, nil
+		}
+		time.Sleep(b.pollTime)
+		continue
 	}
+}
 
-	if msg != "" {
-		NotifyUser(msg)
-	}
-
+// Stop stops the process permanently.
+func (b *Battery) Stop() error {
 	return nil
 }
 
-func (b *battery) Stop() error {
+// Reload stops the process and reloads it.
+func (b *Battery) Reload() error {
 	return nil
 }
 
-func (b *battery) Reload() error {
+// Load loads all the necessary properties of the process.
+func (b *Battery) Load() error {
 	return nil
 }
 
-func (b *battery) Load() error {
-	return nil
+// Info returns a list of messages about the process.
+func (b *Battery) Info() (*service.Info, error) {
+	return nil, nil
 }
 
 func checkBattThreshold() (string, error) {

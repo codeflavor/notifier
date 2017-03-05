@@ -12,7 +12,7 @@ func main() {
 	flag.Set("logtostderr", "true")
 	flag.Parse()
 
-	controller := controller.newController()
-	controller.LoadServices()
+	controller := controller.Controller{}
+	controller.Load()
 	controller.Start()
 }

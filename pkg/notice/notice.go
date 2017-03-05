@@ -42,8 +42,6 @@ func (n *Notifier) newSession() error {
 }
 
 // NotifyUser creates a new notification and sends it to the user.
-func (n *Notifier) NotifyUser() error {
-	n = newNotifier(appName, icon, iconName, summary, body, timeOut)
-
+func (n *Notifier) NotifyUser(appName, icon, iconName, summary, body string, timeOut int) error {
 	return nil
 }
