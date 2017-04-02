@@ -1,6 +1,8 @@
 package notice
 
 import (
+	"fmt"
+
 	"github.com/esiqveland/notify"
 	"github.com/godbus/dbus"
 )
@@ -11,7 +13,7 @@ const (
 )
 
 var (
-	defaultActions = []string{"Dismiss", "cancel"}
+	defaultActions = []string{"Dismiss", "Cancel"}
 )
 
 // Notifier holds information regarding a dbus session used to send
@@ -20,7 +22,7 @@ type Notifier struct {
 	conn *dbus.Conn
 }
 
-func newNotifier(appName, icon, iconName, summary, body string) *notify.Notification {
+func newNotifier(appName, icon, iconName, summary, body string, timeOut int) *notify.Notification {
 	return &notify.Notification{
 		AppName: appName,
 		// NOTE: check this out
@@ -43,5 +45,7 @@ func (n *Notifier) newSession() error {
 
 // NotifyUser creates a new notification and sends it to the user.
 func (n *Notifier) NotifyUser(appName, icon, iconName, summary, body string, timeOut int) error {
+	test := newNotifier(appName, icon, iconName, summary, body, timeOut)
+	fmt.Println(test)
 	return nil
 }
