@@ -1,24 +1,33 @@
 package controller
 
 import (
-	"github.com/codeflavor/notifier/pkg/platform"
-	"github.com/codeflavor/notifier/pkg/service"
 	"github.com/golang/glog"
 )
 
-// Controller controls the service instantiating, terminating and reloading.
-type Controller struct {
-	servicePool []service.Service
+// NOTE: what was i going to use this for?
+type ServiceInfo struct {
+	Name string
 }
 
-var servicePool = []service.Service{}
+// Service is the interface that each service must satisfy in order to be able
+// to run.
+type Service interface {
+	Start() error
+	Stop() error
+	Reload() error
+	Info() (*ServiceInfo, error)
+}
+
+// Controller controls the service instantiating, terminating and reloading.
+type Controller struct {
+	pollTimeSeconds int
+	servicePool     []Service
+}
 
 // Start tries to start a new service..
 func (c *Controller) Start() error {
-	// this goes into a wg?
 	for _, service := range c.servicePool {
-		//NOTE: remember that we have a message received from the service here!
-		_, err := service.Start()
+		err := service.Start()
 		// Don't panic, just log the error from the service.
 		// NOTE: errors need to be detailed to streamline debugging.
 		if err != nil {
@@ -39,12 +48,18 @@ func (c *Controller) Stop() error {
 
 // Reload reloads the services
 func (c *Controller) Reload() error {
-	//for i
+	return nil
 }
 
 // Load validates the services that are going to be run and adds them to
 // the controllers service pool.
 func (c *Controller) Load() error {
-	c.servicePool = servicePool
 	return nil
+}
+
+// newController creates a new controller.
+func newController(pollerTime int, services []Service) *Controller {
+	return &Controller{
+		pollTimeSeconds: pollerTime,
+	}
 }
